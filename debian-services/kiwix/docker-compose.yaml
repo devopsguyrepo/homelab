@@ -1,0 +1,23 @@
+name: kiwix-server
+
+services:
+  kiwix:
+    image: ghcr.io/kiwix/kiwix-serve:3.8.2
+    container_name: kiwix-server
+    restart: unless-stopped
+    init: true
+
+    ports:
+      - "8090:8080"
+
+    volumes:
+      - /data/appdata/kiwix/zim:/data:ro
+      - /data/appdata/kiwix/scripts/start-kiwix.sh:/start-kiwix.sh:ro
+
+    entrypoint: ["/bin/sh", "/start-kiwix.sh"]
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

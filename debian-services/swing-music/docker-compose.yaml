@@ -1,0 +1,17 @@
+services:
+  swingmusic:
+    image: ghcr.io/swingmx/swingmusic:v3.0.0
+    container_name: swingmusic
+
+    ports:
+      - "1970:1970"
+
+    volumes:
+      - /data/appdata/music:/music:ro
+      - /data/appdata/swingmusic/config:/config
+
+    environment:
+      - SWINGMUSIC_PORT= "1970"
+      - SWINGMUSIC_DEVICE_NAME= "Music"
+
+    restart: unless-stopped
